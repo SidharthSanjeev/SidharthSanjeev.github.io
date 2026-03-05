@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Tracker</title>
+    <style>
+    /* Overall page style - matches your personal site */
+    body {
+        font-family: Georgia, serif;
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+        color: #000;
+    }
+
+    /* Back link at top */
+    #back-link {
+        font-size: 14px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    #auth-section {
+    margin-top: 16px;
+    }
+
+    /* Login/logout buttons */
+    #login-btn, #logout-btn {
+        padding: 8px 16px;
+        cursor: pointer;
+        font-family: Georgia, serif;
+        font-size: 14px;
+        border: 1px solid #333;
+        background: white;
+        border-radius: 4px;
+    }
+
+    #login-btn:hover, #logout-btn:hover {
+        background: #f0f0f0;
+    }
+
+    /* Small text showing who is logged in */
+    #user-info {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 8px;
+    }
+
+    /* Green notice when edit mode is on */
+    #edit-notice {
+        font-size: 13px;
+        color: green;
+        margin-top: 5px;
+    }
+
+    /* The grid cells */
+    .day-cell {
+        width: 14px;
+        height: 14px;
+        border-radius: 2px;
+        background: #ebedf0;  /* grey = inactive */
+    }
+
+    .day-cell.active {
+        background: #216e39;  /* green = active */
+    }
+
+    .day-cell.future {
+        background: #f5f5f5;  /* lighter grey = future */
+    }
+
+    .day-cell.clickable {
+        cursor: pointer;      /* hand cursor when editable */
+    }
+    
+    /* Layout for the grid */
+    .grid-wrapper {
+        display: flex;
+        gap: 3px;
+        margin-top: 20px;
+    }
+
+    /* Column of Mon/Wed/Fri labels */
+    .day-labels-col {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .day-name {
+        height: 14px;
+        font-size: 11px;
+        color: #888;
+        text-align: right;
+        padding-right: 6px;
+        line-height: 14px;
+    }
+
+    /* The actual grid of weeks */
+    .weeks-grid {
+        display: flex;
+        gap: 4px;
+    }
+
+    /* Each column = one week */
+    .week-col {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    /* Month labels above grid */
+    .month-labels-row {
+        display: flex;
+        gap: 4px;
+        padding-left: 36px;
+        margin-bottom: 4px;
+    }
+
+    .month-tag {
+        font-size: 11px;
+        color: #555;
+        white-space: nowrap;
+        width: 14px;
+        overflow: visible
+    }
+
+    /* Stats line below grid */
+    #stats {
+        margin-top: 16px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    /* Legend */
+    .legend {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        font-size: 12px;
+        color: #555;
+    }
+
+    .legend-cell {
+        width: 14px;
+        height: 14px;
+        border-radius: 2px;
+    }
+</style>
+</head>
+<body>
+    <!-- Back to main site -->
+    <a href="index.html" id="back-link">← Back to main site</a>
+
+    <h1>Activity Tracker</h1>
+    <hr>
+
+    <!-- LOADING MESSAGE: shown while fetching data -->
+    <p id="loading">Loading...</p>
+
+    <!-- TRACKER: hidden until data loads -->
+    <div id="tracker" style="display:none">
+
+        <!-- Grid wrapper: day labels + weekly grid -->
+        <div class="grid-wrapper">
+
+            <!-- The actual grid built by JavaScript -->
+            <div class="weeks-grid" id="weeks-grid"></div>
+
+        </div>
+
+        <!-- Stats: active days + streak -->
+        <div id="stats"></div>
+
+    </div>
+
+    <!-- AUTH SECTION: login/logout buttons -->
+    <div id="auth-section">
+
+        <!-- Shows when logged in -->
+        <div id="user-info" style="display:none">
+        </div>
+
+        <!-- Shows when logged out -->
+        <button id="login-btn">Login with GitHub</button>
+
+        <!-- Shows when logged in -->
+        <button id="logout-btn" style="display:none">Logout</button>
+
+        <!-- Shows when YOU are logged in -->
+        <div id="edit-notice" style="display:none">
+            ✓ Edit mode active — click any day to toggle
+        </div>
+
+    </div>
+
+    <script type="module" src="tracker.js"></script>
+</body>
+</html>
